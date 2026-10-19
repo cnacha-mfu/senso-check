@@ -1,0 +1,28 @@
+# TODO for the author: fill in the venue and DOI once the paper is published.
+cff-version: 1.2.0
+message: "If you use this tool, please cite the paper below."
+title: "senso-check"
+type: software
+license: MIT
+repository-code: "https://github.com/cnacha-mfu/senso-check"
+authors:
+  - family-names: "Chondamrongkul"
+    given-names: "Nacha"
+    email: "nacha.cho@mfu.ac.th"
+    affiliation: "Mae Fah Luang University"
+  - family-names: "Sun"
+    given-names: "Jing"
+    email: "jing.sun@auckland.ac.nz"
+    affiliation: "University of Auckland"
+preferred-citation:
+  type: article
+  title: "SENSO: Checking Coding-Agent Manifests Against Repository History"
+  authors:
+    - family-names: "Chondamrongkul"
+      given-names: "Nacha"
+      affiliation: "Mae Fah Luang University"
+    - family-names: "Sun"
+      given-names: "Jing"
+      affiliation: "University of Auckland"
+  journal: "[Venue]"
+  year: 2026

@@ -1,0 +1,57 @@
+# Base configuration of the claim check (Paper 1, RQ2). scripts/make_check_config.py copies it to
+# <out-dir>/config.yaml and replaces the four path entries below (corpus, phase1_repos, results_dir, clone_dir)
+# and the snapshot upper bounds; every other value (prompt, models, thresholds) is used as written here.
+corpus: corpus.json
+phase1_repos: no_phase1.json
+results_dir: results
+clone_dir: clones
+
+# Snapshot resolution (design section 7). Upper bound = date the corpus JSON was committed.
+snapshot:
+  t_upper_phase1: "2026-03-18T13:34:47+07:00"   # 23 JSS-era Paper 1 repos (commit 8951fe8)
+  t_upper_new: "2026-03-19T18:42:00+07:00"      # 57 JCSSE expansion repos (commit 5ab006f)
+  manifest_fallbacks: ["CLAUDE.md", ".claude/CLAUDE.md", "AGENTS.md", ".github/copilot-instructions.md"]
+  clone_workers: 3                                # VM rule: at most 4 parallel jobs
+
+# Extraction (design section 5)
+extraction:
+  panel:                                          # model ids from shared/llm_judge/nim_models_v2.yaml; keys: NVIDIA_API_KEY_2, _5, _4
+    - nvidia/nemotron-3-super-120b-a12b
+    - openai/gpt-oss-20b
+    - google/diffusiongemma-26b-a4b-it
+  substitution:                                   # pre-declared rule
+    replace_if_unparseable_share_above: 0.10      # on the first 20 chunks, after retries
+    replacement: meta/llama-3.2-11b-vision-instruct
+    replacement_key_env: NVIDIA_API_KEY
+  prompt_file: configs/wp2_extraction_prompt.md
+  chunk_max_chars: 6000
+  temperature: 0.0
+  max_tokens: 6000
+  concurrency_per_model: 2                        # three models x 2 = 6 requests, below the 4-worker rule per key
+  timeout_s: 120
+  attempts: 3
+  max_parse_retries: 2
+  quote_max_chars: 200
+  line_tolerance: 3
+
+seeds:
+  bootstrap: 20260610
+  sample: 20260611
+
+bootstrap:
+  agreement_resamples: 1000
+  report_resamples: 10000
+
+triangulation:
+  t1_random_supported: 50
+  github_token_env: GITHUB_TOKEN
+
+explanations:
+  random_supported: 30
+  pellet_timeout_s: 300
+
+headline_exclusions:                              # design section 7 (claim level)
+  types_excluded_from_rates: [T7]
+  protected_status_excluded: true
+sensitivity:
+  mode: one_at_a_time                             # 5 thresholds x 2 values + baseline = 11 TBox builds

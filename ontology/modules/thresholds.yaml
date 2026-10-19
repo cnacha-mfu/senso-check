@@ -1,0 +1,1178 @@
+# Generated once from the WP1 inventory; edit by hand afterwards.
+version: 1
+description: Threshold register for Paper 1 WP1 (design section 6). The builder bakes these values into seo-inference.owl.
+  Only mk_alpha has a literature basis; everything else is UNJUSTIFIED and needs a citation or a sensitivity analysis (WP4).
+  Line numbers refer to the files at the commit that introduced this register.
+thresholds:
+- id: mk_alpha
+  value: 0.05
+  unit: probability
+  rule: Mann-Kendall significance level for GrowthStage/DeclineStage
+  source: ontology/population/populate.py:101,545
+  status: JUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 0.01
+  - 0.1
+  used_in_ontology: true
+  note: Conventional alpha; cite Mann 1945 and Kendall 1975 (WP4). Sensitivity at 0.01 and 0.10.
+- id: mk_min_months
+  value: 4
+  unit: months
+  rule: 'MKApplicable: minimum months of LOC series for the trend test'
+  source: ontology/population/populate.py:533
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 3
+  - 5
+  - 6
+  used_in_ontology: true
+- id: lookback_months
+  value: 36
+  unit: months
+  rule: Mining and zero-fill lookback window
+  source: ontology/population/populate.py:94
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 24
+  - 48
+  used_in_ontology: false
+- id: p_law1_min_months
+  value: 2
+  unit: months
+  rule: Law I guard
+  source: ontology/population/populate.py:628
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 1
+  - 3
+  - 4
+  used_in_ontology: true
+- id: p_law1_active_ratio
+  value: 0.5
+  unit: ratio
+  rule: 'Law I: activeMonthRatio >= value'
+  source: ontology/population/populate.py:634
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 0.25
+  - 0.375
+  - 0.625
+  - 0.75
+  used_in_ontology: true
+- id: p_law2_min_complexity_months
+  value: 3
+  unit: months
+  rule: 'Law II guard: months with complexity > 0'
+  source: ontology/population/populate.py:648
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 2
+  - 4
+  - 5
+  used_in_ontology: true
+- id: p_law3_min_months
+  value: 6
+  unit: months
+  rule: Law III guard
+  source: ontology/population/populate.py:668
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 5
+  - 7
+  - 8
+  used_in_ontology: true
+- id: p_law3_churn_cv
+  value: 2.0
+  unit: unitless (population SD / max(mean,1))
+  rule: 'Law III: churnCV < value'
+  source: ontology/population/populate.py:677
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 1.0
+  - 1.5
+  - 2.5
+  - 3.0
+  used_in_ontology: true
+- id: p_law4_min_months
+  value: 6
+  unit: months
+  rule: Law IV guard
+  source: ontology/population/populate.py:687
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 5
+  - 7
+  - 8
+  used_in_ontology: true
+- id: p_law4_commit_cv
+  value: 1.5
+  unit: unitless
+  rule: 'Law IV: commitCountCV < value'
+  source: ontology/population/populate.py:695
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 0.75
+  - 1.125
+  - 1.875
+  - 2.25
+  used_in_ontology: true
+- id: p_law5_min_months
+  value: 4
+  unit: months
+  rule: Law V guard
+  source: ontology/population/populate.py:705
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 3
+  - 5
+  - 6
+  used_in_ontology: true
+- id: p_law5_additions_cv
+  value: 2.0
+  unit: unitless
+  rule: 'Law V: linesAddedCV < value'
+  source: ontology/population/populate.py:713
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 1.0
+  - 1.5
+  - 2.5
+  - 3.0
+  used_in_ontology: true
+- id: p_law7_min_active_months
+  value: 4
+  unit: months
+  rule: 'Law VII guard: months with commits'
+  source: ontology/population/populate.py:742
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 3
+  - 5
+  - 6
+  used_in_ontology: true
+- id: p_law7_tolerance
+  value: 0.9
+  unit: factor
+  rule: 'Law VII: second-half bug-fix ratio >= value * first-half ratio'
+  source: ontology/population/populate.py:750
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 0.45
+  - 0.675
+  - 1.125
+  - 1.35
+  used_in_ontology: true
+- id: p_law8_min_months
+  value: 6
+  unit: months
+  rule: Law VIII guard
+  source: ontology/population/populate.py:760
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 5
+  - 7
+  - 8
+  used_in_ontology: true
+- id: p_law8_merge_ratio
+  value: 0.3
+  unit: ratio
+  rule: 'Law VIII: mergeMonthRatio > value'
+  source: ontology/population/populate.py:771
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 0.15
+  - 0.225
+  - 0.375
+  - 0.45
+  used_in_ontology: true
+- id: p_law8_multiauthor_ratio
+  value: 0.3
+  unit: ratio
+  rule: 'Law VIII: multiAuthorMonthRatio > value'
+  source: ontology/population/populate.py:771
+  status: UNJUSTIFIED
+  group: pipeline
+  sensitivity:
+  - 0.15
+  - 0.225
+  - 0.375
+  - 0.45
+  used_in_ontology: true
+- id: t_law1_min_months
+  value: 2
+  unit: months
+  rule: 'Paper-table laws: n<2 means all laws True in oracle'
+  source: ontology/scenario_bank/test_scenarios.py:219
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 1
+  - 3
+  - 4
+  used_in_ontology: true
+- id: t_law1_mean_commits
+  value: 3.0
+  unit: commits/month
+  rule: 'Law I: meanMonthlyCommits >= value'
+  source: ontology/scenario_bank/test_scenarios.py:233
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 1.5
+  - 2.25
+  - 3.75
+  - 4.5
+  used_in_ontology: true
+- id: t_law1_recent_commits
+  value: 5
+  unit: commits
+  rule: 'Law I: commits in last 3 months > value'
+  source: ontology/scenario_bank/test_scenarios.py:233
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 3
+  - 8
+  used_in_ontology: true
+- id: t_law2_tolerance
+  value: 0.1
+  unit: CCN
+  rule: 'Law II: complexityLast >= complexityFirst - value'
+  source: ontology/scenario_bank/test_scenarios.py:236
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.05
+  - 0.075
+  - 0.125
+  - 0.15
+  used_in_ontology: true
+- id: t_law3_loc_up
+  value: 0.1
+  unit: ratio
+  rule: 'Law III: LOC growth rate above this is the growing branch'
+  source: ontology/scenario_bank/test_scenarios.py:239
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.05
+  - 0.075
+  - 0.125
+  - 0.15
+  used_in_ontology: true
+- id: t_law3_loc_down
+  value: -0.05
+  unit: ratio
+  rule: 'Law III: LOC growth rate below this is the shrinking branch'
+  source: ontology/scenario_bank/test_scenarios.py:243
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - -0.1
+  - -0.025
+  used_in_ontology: true
+- id: t_law3_cx_factor
+  value: 1.2
+  unit: factor
+  rule: 'Law III growing: complexity growth <= factor * LOC growth'
+  source: ontology/scenario_bank/test_scenarios.py:241
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.6
+  - 0.9
+  - 1.5
+  - 1.8
+  used_in_ontology: true
+- id: t_law3_cx_shrink_max
+  value: 0.02
+  unit: ratio
+  rule: 'Law III shrinking: complexity growth <= value'
+  source: ontology/scenario_bank/test_scenarios.py:245
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.01
+  - 0.015
+  - 0.025
+  - 0.03
+  used_in_ontology: true
+- id: t_law3_cx_stable_abs
+  value: 0.1
+  unit: ratio
+  rule: 'Law III stable: |complexity growth| < value'
+  source: ontology/scenario_bank/test_scenarios.py:249
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.05
+  - 0.075
+  - 0.125
+  - 0.15
+  used_in_ontology: true
+- id: t_law3_cv_up
+  value: 0.6
+  unit: unitless (sample SD)
+  rule: 'Law III growing: commit CV < value'
+  source: ontology/scenario_bank/test_scenarios.py:241
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.3
+  - 0.45
+  - 0.75
+  - 0.9
+  used_in_ontology: true
+- id: t_law3_cv_down
+  value: 0.6
+  unit: unitless (sample SD)
+  rule: 'Law III shrinking: commit CV < value'
+  source: ontology/scenario_bank/test_scenarios.py:245
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.3
+  - 0.45
+  - 0.75
+  - 0.9
+  used_in_ontology: true
+- id: t_law3_cv_stable
+  value: 0.5
+  unit: unitless (sample SD)
+  rule: 'Law III stable: commit CV < value'
+  source: ontology/scenario_bank/test_scenarios.py:249
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.25
+  - 0.375
+  - 0.625
+  - 0.75
+  used_in_ontology: true
+- id: t_law4_cv
+  value: 0.45
+  unit: unitless (sample SD)
+  rule: 'Law IV: commit CV < value'
+  source: ontology/scenario_bank/test_scenarios.py:254
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.225
+  - 0.3375
+  - 0.5625
+  - 0.675
+  used_in_ontology: true
+- id: t_law5_max_loc_change
+  value: 0.4
+  unit: ratio
+  rule: 'Law V: every month-on-month |LOC change| < value'
+  source: ontology/scenario_bank/test_scenarios.py:263
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.2
+  - 0.3
+  - 0.5
+  - 0.6
+  used_in_ontology: true
+- id: t_law5_cx_growth
+  value: 0.04
+  unit: ratio/month
+  rule: 'Law V: monthly complexity growth < value'
+  source: ontology/scenario_bank/test_scenarios.py:263
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.02
+  - 0.03
+  - 0.05
+  - 0.06
+  used_in_ontology: true
+- id: t_law6_loc_factor
+  value: 1.03
+  unit: factor
+  rule: 'Law VI: LOC_last > value * LOC_first'
+  source: ontology/scenario_bank/test_scenarios.py:267
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.515
+  - 0.7725
+  - 1.2875
+  - 1.545
+  used_in_ontology: true
+- id: t_law6_features
+  value: 5
+  unit: commits
+  rule: 'Law VI: second-half feature commits > value'
+  source: ontology/scenario_bank/test_scenarios.py:268
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 3
+  - 8
+  used_in_ontology: true
+- id: t_law7_refactor_ratio
+  value: 0.15
+  unit: ratio
+  rule: 'Law VII: refactoringRatio < value'
+  source: ontology/scenario_bank/test_scenarios.py:274
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.075
+  - 0.1125
+  - 0.1875
+  - 0.225
+  used_in_ontology: true
+- id: t_law8_min_months
+  value: 4
+  unit: months
+  rule: Law VIII guard (n<4 means True in oracle)
+  source: ontology/scenario_bank/test_scenarios.py:278
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 3
+  - 5
+  - 6
+  used_in_ontology: true
+- id: t_law8_rising_delta
+  value: 0.1
+  unit: CCN
+  rule: 'Law VIII: month is Rising if complexity delta > value'
+  source: ontology/scenario_bank/test_scenarios.py:283
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.05
+  - 0.075
+  - 0.125
+  - 0.15
+  used_in_ontology: true
+- id: t_law8_corrective
+  value: 5
+  unit: commits
+  rule: 'Law VIII: month is Corrective if refactorings+bug fixes > value'
+  source: ontology/scenario_bank/test_scenarios.py:284
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 3
+  - 8
+  used_in_ontology: true
+- id: t_law8_responsive
+  value: 3
+  unit: commits
+  rule: 'Law VIII: next month Corrective3 if corrective > value'
+  source: ontology/scenario_bank/test_scenarios.py:290
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 2
+  - 5
+  used_in_ontology: true
+- id: t_law8_factor
+  value: 0.5
+  unit: factor
+  rule: 'Law VIII: corrective months >= value * rising months'
+  source: ontology/scenario_bank/test_scenarios.py:296
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 0.25
+  - 0.375
+  - 0.625
+  - 0.75
+  used_in_ontology: true
+- id: t_law8_recent
+  value: 8
+  unit: commits
+  rule: 'Law VIII: corrective commits in last 2 months > value'
+  source: ontology/scenario_bank/test_scenarios.py:296
+  status: UNJUSTIFIED
+  group: paper_table
+  sensitivity:
+  - 5
+  - 12
+  used_in_ontology: true
+- id: e_min_months
+  value: 2
+  unit: months
+  rule: 'Ensemble: fewer months gives stabilization'
+  source: ontology/scenario_bank/test_scenarios.py:98
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 1
+  - 3
+  - 4
+  used_in_ontology: true
+- id: e_tau
+  value: 0.3
+  unit: tau
+  rule: 'LOC vote: tau beyond +/- value'
+  source: ontology/scenario_bank/test_scenarios.py:118
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.15
+  - 0.225
+  - 0.375
+  - 0.45
+  used_in_ontology: true
+- id: e_loc_growth_pct
+  value: 5.0
+  unit: percent
+  rule: 'LOC vote growth: change > value'
+  source: ontology/scenario_bank/test_scenarios.py:118
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 2.5
+  - 3.75
+  - 6.25
+  - 7.5
+  used_in_ontology: true
+- id: e_loc_decline_pct
+  value: -1.5
+  unit: percent
+  rule: 'LOC vote decline: change < value'
+  source: ontology/scenario_bank/test_scenarios.py:120
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - -3.0
+  - -0.75
+  used_in_ontology: true
+- id: e_commit_collapse
+  value: 0.5
+  unit: ratio
+  rule: 'Commit vote decline: ratio < value'
+  source: ontology/scenario_bank/test_scenarios.py:131
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.25
+  - 0.375
+  - 0.625
+  - 0.75
+  used_in_ontology: true
+- id: e_commit_growth
+  value: 1.15
+  unit: ratio
+  rule: 'Commit vote growth: ratio > value'
+  source: ontology/scenario_bank/test_scenarios.py:133
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.575
+  - 0.8625
+  - 1.4375
+  - 1.725
+  used_in_ontology: true
+- id: e_commit_growth_min_mean
+  value: 20
+  unit: commits/month
+  rule: 'Commit vote growth: second-half mean > value'
+  source: ontology/scenario_bank/test_scenarios.py:133
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 10
+  - 30
+  used_in_ontology: true
+- id: e_commit_wind_down
+  value: 0.7
+  unit: ratio
+  rule: 'Commit vote: ratio < value is wind-down'
+  source: ontology/scenario_bank/test_scenarios.py:135
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.35
+  - 0.525
+  - 0.875
+  - 1.05
+  used_in_ontology: true
+- id: e_commit_low_mean
+  value: 15
+  unit: commits/month
+  rule: 'Commit vote wind-down: second-half mean < value is decline'
+  source: ontology/scenario_bank/test_scenarios.py:137
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 10
+  - 20
+  used_in_ontology: true
+- id: e_feat_total_growth
+  value: 50
+  unit: commits
+  rule: 'Feature vote growth: total > value'
+  source: ontology/scenario_bank/test_scenarios.py:146
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 30
+  - 70
+  used_in_ontology: true
+- id: e_feat_second_vs_first
+  value: 0.7
+  unit: factor
+  rule: 'Feature vote growth: f2 > value * f1'
+  source: ontology/scenario_bank/test_scenarios.py:146
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.35
+  - 0.525
+  - 0.875
+  - 1.05
+  used_in_ontology: true
+- id: e_feat_total_low
+  value: 15
+  unit: commits
+  rule: 'Feature vote low activity: total < value'
+  source: ontology/scenario_bank/test_scenarios.py:148
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 10
+  - 20
+  used_in_ontology: true
+- id: e_feat_second_low
+  value: 5
+  unit: commits
+  rule: 'Feature vote low activity: f2 < value'
+  source: ontology/scenario_bank/test_scenarios.py:148
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 3
+  - 8
+  used_in_ontology: true
+- id: e_feat_low_mean
+  value: 15
+  unit: commits/month
+  rule: 'Feature vote decline: second-half commit mean < value'
+  source: ontology/scenario_bank/test_scenarios.py:150
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 10
+  - 20
+  used_in_ontology: true
+- id: e_feat_low_ratio
+  value: 0.7
+  unit: ratio
+  rule: 'Feature vote decline: commit ratio < value'
+  source: ontology/scenario_bank/test_scenarios.py:150
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.35
+  - 0.525
+  - 0.875
+  - 1.05
+  used_in_ontology: true
+- id: e_feat_stab_factor
+  value: 0.4
+  unit: factor
+  rule: 'Feature vote stabilization: f2 < value * f1'
+  source: ontology/scenario_bank/test_scenarios.py:156
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.2
+  - 0.3
+  - 0.5
+  - 0.6
+  used_in_ontology: true
+- id: e_override_min_months
+  value: 4
+  unit: months
+  rule: Override guard
+  source: ontology/scenario_bank/test_scenarios.py:162
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 3
+  - 5
+  - 6
+  used_in_ontology: true
+- id: e_decl_ratio
+  value: 0.65
+  unit: ratio
+  rule: 'Decline override: commit ratio < value'
+  source: ontology/scenario_bank/test_scenarios.py:164
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.325
+  - 0.4875
+  - 0.8125
+  - 0.975
+  used_in_ontology: true
+- id: e_decl_feat_factor
+  value: 0.5
+  unit: factor
+  rule: 'Decline override: f2 < value * f1'
+  source: ontology/scenario_bank/test_scenarios.py:164
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.25
+  - 0.375
+  - 0.625
+  - 0.75
+  used_in_ontology: true
+- id: e_grow_recent_months
+  value: 3
+  unit: months
+  rule: 'Growth override: window length'
+  source: ontology/scenario_bank/test_scenarios.py:168
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 2
+  - 4
+  used_in_ontology: true
+- id: e_grow_recent_growth
+  value: 0.05
+  unit: ratio
+  rule: 'Growth override: LOC growth over window > value'
+  source: ontology/scenario_bank/test_scenarios.py:172
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 0.025
+  - 0.0375
+  - 0.0625
+  - 0.075
+  used_in_ontology: true
+- id: e_grow_features
+  value: 30
+  unit: commits
+  rule: 'Growth override: f2 > value'
+  source: ontology/scenario_bank/test_scenarios.py:172
+  status: UNJUSTIFIED
+  group: legacy_ensemble
+  sensitivity:
+  - 20
+  - 40
+  used_in_ontology: true
+- id: a_min_months
+  value: 2
+  unit: months
+  rule: 'Anti-pattern guard: fewer months give no patterns'
+  source: ontology/scenario_bank/test_scenarios.py:326
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 1
+  - 3
+  - 4
+  used_in_ontology: true
+- id: a_agent_shadow
+  value: 0.25
+  unit: ratio
+  rule: 'AgentAssociatedComplexityGrowth: recent agent ratio > value'
+  source: ontology/scenario_bank/test_scenarios.py:351
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.125
+  - 0.1875
+  - 0.3125
+  - 0.375
+  used_in_ontology: true
+- id: a_cx_vs_loc_factor
+  value: 0.5
+  unit: ratio
+  rule: '...complexity growth > value * LOC growth'
+  source: ontology/scenario_bank/test_scenarios.py:351
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.25
+  - 0.375
+  - 0.625
+  - 0.75
+  used_in_ontology: true
+- id: a_cx_growth_shadow
+  value: 0.15
+  unit: ratio
+  rule: '...complexity growth > value'
+  source: ontology/scenario_bank/test_scenarios.py:351
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.075
+  - 0.1125
+  - 0.1875
+  - 0.225
+  used_in_ontology: true
+- id: a_dep_growth
+  value: 0.3
+  unit: ratio
+  rule: 'DependencySprawl: dependency growth > value (no data in real repos, D9)'
+  source: ontology/scenario_bank/test_scenarios.py:355
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.15
+  - 0.225
+  - 0.375
+  - 0.45
+  used_in_ontology: true
+- id: a_agent_dep
+  value: 0.05
+  unit: ratio
+  rule: 'DependencySprawl: recent agent ratio > value'
+  source: ontology/scenario_bank/test_scenarios.py:355
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.025
+  - 0.0375
+  - 0.0625
+  - 0.075
+  used_in_ontology: true
+- id: a_agent_refactor
+  value: 0.3
+  unit: ratio
+  rule: 'RefactoringAvoidance: recent agent ratio > value'
+  source: ontology/scenario_bank/test_scenarios.py:359
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.15
+  - 0.225
+  - 0.375
+  - 0.45
+  used_in_ontology: true
+- id: a_refactor_ratio
+  value: 0.12
+  unit: ratio
+  rule: 'RefactoringAvoidance: refactoring ratio < value'
+  source: ontology/scenario_bank/test_scenarios.py:359
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.06
+  - 0.09
+  - 0.15
+  - 0.18
+  used_in_ontology: true
+- id: a_cx_growth_refactor
+  value: 0.1
+  unit: ratio
+  rule: 'RefactoringAvoidance: complexity growth > value'
+  source: ontology/scenario_bank/test_scenarios.py:359
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.05
+  - 0.075
+  - 0.125
+  - 0.15
+  used_in_ontology: true
+- id: a_agent_copy
+  value: 0.3
+  unit: ratio
+  rule: 'CopyPasteOverReuse: recent agent ratio > value'
+  source: ontology/scenario_bank/test_scenarios.py:364
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.15
+  - 0.225
+  - 0.375
+  - 0.45
+  used_in_ontology: true
+- id: a_loc_growth_copy
+  value: 0.5
+  unit: ratio
+  rule: 'CopyPasteOverReuse: LOC growth > value'
+  source: ontology/scenario_bank/test_scenarios.py:364
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.25
+  - 0.375
+  - 0.625
+  - 0.75
+  used_in_ontology: true
+- id: a_loc_per_feature
+  value: 800
+  unit: ratio
+  rule: 'CopyPasteOverReuse: LOC per feature > value'
+  source: ontology/scenario_bank/test_scenarios.py:365
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity: []
+  used_in_ontology: true
+- id: a_loc_vs_cx_factor
+  value: 3
+  unit: ratio
+  rule: 'CopyPasteOverReuse: LOC growth > value * complexity growth'
+  source: ontology/scenario_bank/test_scenarios.py:366
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity: []
+  used_in_ontology: true
+- id: a_loc_growth_copy2
+  value: 1.0
+  unit: ratio
+  rule: 'CopyPasteOverReuse: LOC growth > value (second branch)'
+  source: ontology/scenario_bank/test_scenarios.py:366
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 0.5
+  - 0.75
+  - 1.25
+  - 1.5
+  used_in_ontology: true
+- id: a_recent_months
+  value: 3
+  unit: months
+  rule: Recent window for agent commit ratio
+  source: ontology/scenario_bank/test_scenarios.py:337
+  status: UNJUSTIFIED
+  group: anti_patterns
+  sensitivity:
+  - 2
+  - 6
+  used_in_ontology: true
+- id: g_trend_up
+  value: 1.1
+  unit: mixed
+  rule: Commit trend up factor (reporting, not ontology)
+  source: experiments/paper1_ontology_manifests/run_real_experiments.py:951
+  status: UNJUSTIFIED
+  group: generators
+  sensitivity: []
+  used_in_ontology: false
+- id: g_trend_down
+  value: 0.9
+  unit: mixed
+  rule: Commit trend down factor (reporting)
+  source: experiments/paper1_ontology_manifests/run_real_experiments.py:952
+  status: UNJUSTIFIED
+  group: generators
+  sensitivity: []
+  used_in_ontology: false
+- id: g_agent_ratio
+  value: 0.3
+  unit: mixed
+  rule: Recommendation trigger on agent ratio
+  source: experiments/paper1_ontology_manifests/run_real_experiments.py:983
+  status: UNJUSTIFIED
+  group: generators
+  sensitivity: []
+  used_in_ontology: false
+- id: g_deps
+  value: 50
+  unit: mixed
+  rule: Recommendation trigger on dependency count
+  source: experiments/paper1_ontology_manifests/run_real_experiments.py:990
+  status: UNJUSTIFIED
+  group: generators
+  sensitivity: []
+  used_in_ontology: false
+- id: g_bug_ratio
+  value: 0.4
+  unit: mixed
+  rule: Recommendation trigger on bug ratio
+  source: experiments/paper1_ontology_manifests/run_real_experiments.py:995
+  status: UNJUSTIFIED
+  group: generators
+  sensitivity: []
+  used_in_ontology: false
+- id: g_complexity_delta_pct
+  value: 20
+  unit: mixed
+  rule: Six-month complexity delta trigger
+  source: manifests/generator/generate.py:717
+  status: UNJUSTIFIED
+  group: generators
+  sensitivity: []
+  used_in_ontology: false
+- id: g_percentile
+  value: 75
+  unit: mixed
+  rule: Percentile trigger
+  source: manifests/generator/generate.py:719
+  status: UNJUSTIFIED
+  group: generators
+  sensitivity: []
+  used_in_ontology: false
+- id: rb_dormancy_months
+  value: 12
+  unit: months
+  rule: "RQ1 C2: Dormant (RBPhaseOutStage) iff monthsSinceLastCommit >= value"
+  source: papers/paper1/rq1-preregistration.md section 2.2
+  status: UNJUSTIFIED
+  group: lifecycle
+  sensitivity:
+  - 6
+  - 18
+  - 24
+  used_in_ontology: true
+  note: A-priori convention, pre-registered before mining. One-year inactivity as an unmaintained proxy (Coelho & Valente FSE 2017; Avelino et al. 2019 - verify before citing). 24 coincides with the WP3 sampling filter.
+- id: rb_min_rel_loc_growth_per_year
+  value: 0.05
+  unit: fraction of median LOC per year
+  rule: "RQ1 C2: SubstantialLocGrowth iff locRelSenSlopeAnnual >= value"
+  source: papers/paper1/rq1-preregistration.md section 2.2
+  status: UNJUSTIFIED
+  group: lifecycle
+  sensitivity:
+  - 0
+  - 0.02
+  - 0.1
+  used_in_ontology: true
+  note: A-priori convention, pre-registered before mining. No literature value exists; 0 reduces C2 to MK plus dormancy (ablation).
+- id: mk_test_variant
+  value: original
+  unit: categorical
+  rule: "Mann-Kendall variant: pymannkendall.original_test (D6); hamed_rao_modification_test is sensitivity S5"
+  source: papers/paper1/rq1-preregistration.md section 3
+  status: JUSTIFIED
+  group: lifecycle
+  sensitivity:
+  - hamed_rao
+  used_in_ontology: false
+  note: Original test per D6; autocorrelation-corrected variant (Hamed & Rao 1998) as sensitivity.
+# ---------------------------------------------------------------------------
+# WP2 (documentation-history consistency checking; papers/paper1/wp2-design.md section 3)
+# A-priori values, committed before any WP2 extraction call. One-at-a-time
+# sensitivity (5 parameters x 2 values + baseline = 11 TBox builds) is primary.
+# ---------------------------------------------------------------------------
+- id: wp2_status_window_days
+  value: 180
+  unit: days
+  rule: "WP2 T2: churn window W before the snapshot commit; the builder selects pathCommitsIn{W}d / pathLinesChangedIn{W}d (W in 90, 180, 365)"
+  source: papers/paper1/wp2-design.md section 3 (T2)
+  status: UNJUSTIFIED
+  group: wp2
+  sensitivity:
+  - 90
+  - 365
+  used_in_ontology: true
+  note: About two release cycles. Dormancy definitions in OSS studies use 6 to 12 months (Coelho & Valente FSE 2017; Avelino et al. 2019 - verify before citing).
+- id: wp2_inactive_contradict_min_commits
+  value: 5
+  unit: commits
+  rule: "WP2 T2: InactivePathActive needs pathCommitsInWd >= value"
+  source: papers/paper1/wp2-design.md section 3 (T2)
+  status: UNJUSTIFIED
+  group: wp2
+  sensitivity:
+  - 3
+  - 10
+  used_in_ontology: true
+  note: Close to monthly activity over the 180-day window.
+- id: wp2_inactive_contradict_min_lines
+  value: 100
+  unit: lines
+  rule: "WP2 T2: InactivePathActive needs pathLinesChangedInWd >= value"
+  source: papers/paper1/wp2-design.md section 3 (T2)
+  status: UNJUSTIFIED
+  group: wp2
+  sensitivity:
+  - 50
+  - 500
+  used_in_ontology: true
+  note: Excludes one-line fixes and typo sweeps.
+- id: wp2_inactive_support_max_commits
+  value: 1
+  unit: commits
+  rule: "WP2 T2: InactivePathQuiet iff pathCommitsInWd <= value"
+  source: papers/paper1/wp2-design.md section 3 (T2)
+  status: UNJUSTIFIED
+  group: wp2
+  sensitivity:
+  - 0
+  - 2
+  used_in_ontology: true
+  note: A single maintenance touch still counts as quiet.
+- id: wp2_consensus_min_votes
+  value: 2
+  unit: models
+  rule: "WP2: CheckedClaim needs extractionVotes >= value (of 3 extraction models)"
+  source: papers/paper1/wp2-design.md section 5.4
+  status: UNJUSTIFIED
+  group: wp2
+  sensitivity:
+  - 1
+  - 3
+  used_in_ontology: true
+  note: Majority of three vendors. 1 (union) and 3 (unanimity) are the robustness sweep.
+- id: wp2_import_violation_min_edges
+  value: 1
+  unit: import edges
+  rule: "WP2 T7 (stretch): ImportRuleViolated iff forbiddenImportEdgeCount >= value"
+  source: papers/paper1/wp2-design.md section 3 (T7)
+  status: UNJUSTIFIED
+  group: wp2
+  sensitivity:
+  - 3
+  - 5
+  used_in_ontology: true
+  note: Any single forbidden import violates a literal prohibition. T7 is a case-study type, not part of headline rates.
+- id: mod_window_months
+  value: 12
+  unit: months
+  rule: "WP5 module stability: measurement window W for module commits, change months and lines changed"
+  source: papers/paper1/wp5-analysis-plan.md section 3.2
+  status: UNJUSTIFIED
+  group: module_stability
+  sensitivity:
+  - 6
+  - 24
+  used_in_ontology: false
+  note: "A-priori convention (measurement window, not a rule constant). One annual cycle, matching rb_dormancy_months. Changing it needs re-measurement of the module ABox (SA9)."
+- id: mod_stable_max_rel_churn
+  value: 0.10
+  unit: lines changed in the window / module LOC
+  rule: "WP5: LowRelChurnModule iff moduleRelChurnInWindow < value (Rs); HighRelChurnModule iff >= value"
+  source: papers/paper1/wp5-analysis-plan.md section 3.2
+  status: UNJUSTIFIED
+  group: module_stability
+  sensitivity:
+  - 0.05
+  - 0.2
+  used_in_ontology: true
+  note: "Under a tenth of a module's lines rewritten in a year means occasional patching, not redevelopment. Relative churn as a measure: Nagappan & Ball, ICSE 2005 (verify before citing). The literature gives no cut-off."
+- id: mod_stable_max_change_months
+  value: 2
+  unit: months
+  rule: "WP5: RarelyChangedModule iff moduleChangeMonthsInWindow <= value (Ms); OftenChangedModule iff > value"
+  source: papers/paper1/wp5-analysis-plan.md section 3.2
+  status: UNJUSTIFIED
+  group: module_stability
+  sensitivity:
+  - 0
+  - 1
+  - 4
+  used_in_ontology: true
+  note: "Touched in at most one month in six is the module-level analogue of R&B servicing (minor tactical change). A-priori convention."

@@ -1,0 +1,63 @@
+# NIM model panel for the Paper 1 rebuild (JSEP) and later v2 experiments.
+#
+# The JSS-era registries (MODEL_REGISTRY in manifests/comparator/compare.py and the
+# runners, plus experiments/jcsse2026/configs/jcsse.yaml) are left untouched as the
+# record of what produced the committed results. Every model in them was retired on
+# NIM by 2026-10-06 (410 Gone / 404).
+#
+# Selection: probe of 2026-10-06, 3 realistic judge calls per model
+# (results/real_v2/nim/model_probe_2026-10-06.json). Only models that returned
+# parseable JSON on at least 2 of 3 calls are listed. One model per vendor org.
+#
+# Vendor change vs JSS era: Mistral AI and Alibaba have no live chat model on NIM
+# (every mistralai/* endpoint 404s, no qwen/* listed), so they are replaced by
+# OpenAI (open-weight gpt-oss) and Z.ai. The paper must report the new panel.
+#
+# Keys: the NIM keys are per account, not per vendor, so any key can call any
+# model. Each panel model gets its own key to spread rate limits.
+# NVIDIA_API_KEY_3 returned 403 "Authorization failed" on 2026-10-06 and is unused.
+
+nim_base_url: "https://integrate.api.nvidia.com/v1"
+probed_on: "2026-10-06"
+
+panel:
+  - org: "Meta"
+    model: "meta/llama-3.2-90b-vision-instruct"
+    key_env: "NVIDIA_API_KEY"
+    probe_latency_s: [147.6, 98.0, 216.8]
+    note: "Slow. meta/llama-3.2-11b-vision-instruct (~2-10 s) is the fast fallback."
+  - org: "NVIDIA"
+    model: "nvidia/nemotron-3-super-120b-a12b"
+    key_env: "NVIDIA_API_KEY_2"
+    probe_latency_s: [13.5, 4.1, 4.8]
+  - org: "Google"
+    model: "google/diffusiongemma-26b-a4b-it"
+    key_env: "NVIDIA_API_KEY_4"
+    probe_latency_s: [1.6, 1.3, 2.6]
+    note: "Diffusion LM; wraps JSON in ```json fences; returned empty text for a bare \"Reply OK\" prompt but valid JSON on 3/3 judge prompts. google/gemma-4-31b-it timed out (240 s) 3/3."
+  - org: "OpenAI"
+    model: "openai/gpt-oss-20b"
+    key_env: "NVIDIA_API_KEY_5"
+    probe_latency_s: [5.9, 5.8, 5.8]
+    note: "Open-weight model served by NIM, not the paid OpenAI API."
+  - org: "Z.ai"
+    model: "z-ai/glm-5.3"
+    key_env: "NVIDIA_API_KEY"
+    probe_latency_s: [129.2, 137.0, 145.1]
+    note: "Slow. Shares NVIDIA_API_KEY with the Meta model."
+
+# Live but not on the panel. Usable as WP5 agent generators or replacements.
+reserve:
+  - {org: "poolside",  model: "poolside/laguna-xs-2.1",                         note: "Code model; 1.8-140 s"}
+  - {org: "Meta",      model: "meta/muse-glimmer-30b",                          note: "30-78 s"}
+  - {org: "Meta",      model: "meta/llama-3.2-11b-vision-instruct",             note: "Fast, small"}
+  - {org: "NVIDIA",    model: "nvidia/nemotron-3.5-lightning-30b-a3b",          note: "Reasoning; 39-69 s"}
+  - {org: "NVIDIA",    model: "nvidia/nemotron-3-ultra-550b-a55b",              note: "503 on 2 of 3 calls"}
+  - {org: "NVIDIA",    model: "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",  note: "503 on 1 of 3 calls"}
+
+# Listed by /v1/models but timed out (240 s) on every probe call; re-probe before use.
+timed_out:
+  - "google/gemma-4-31b-it"
+  - "deepseek-ai/deepseek-v4.1-flash"
+  - "moonshotai/kimi-k3"
+  - "z-ai/glm-5.3-flash"

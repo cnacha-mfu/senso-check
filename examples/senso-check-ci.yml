@@ -1,0 +1,33 @@
+# Example GitHub Actions workflow: fail the job if CLAUDE.md or AGENTS.md makes a claim that the
+# repository contradicts. Copy it to .github/workflows/senso-check.yml in YOUR repository.
+# Needs three repository secrets (NVIDIA NIM keys, see the README). Not run by this repository's own CI.
+name: senso-check
+on:
+  pull_request:
+    paths: ["CLAUDE.md", "AGENTS.md"]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # the check reads the git history (drift, born wrong)
+      - uses: actions/checkout@v4
+        with:
+          repository: cnacha-mfu/senso-check
+          path: senso-check
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-java@v4  # sets JAVA_HOME; the check was tested with Temurin 25
+        with: { distribution: temurin, java-version: "25" }
+      - run: pip install -r senso-check/requirements.txt
+      - name: SENSO claim check
+        env:
+          NVIDIA_API_KEY_2: ${{ secrets.NVIDIA_API_KEY_2 }}
+          NVIDIA_API_KEY_4: ${{ secrets.NVIDIA_API_KEY_4 }}
+          NVIDIA_API_KEY_5: ${{ secrets.NVIDIA_API_KEY_5 }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python senso-check/senso_check.py \
+            --repo ${{ github.repository }} --local-path "$GITHUB_WORKSPACE" \
+            --out "$RUNNER_TEMP/senso-out" --skip-explain --fail-on contradicted

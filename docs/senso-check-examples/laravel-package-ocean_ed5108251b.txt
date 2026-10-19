@@ -1,0 +1,87 @@
+SENSO claim check: HassanZahirnia/laravel-package-ocean @ ed5108251b  manifest CLAUDE.md
+  L11   T6  supported     - php - 8.4.21
+  L12   T4  supported     - filament/filament (FILAMENT) - v4
+  L13   T4  supported     - laravel/framework (LARAVEL) - v12
+  L14   T4  supported     - laravel/prompts (PROMPTS) - v0
+  L15   T4  supported     - laravel/sanctum (SANCTUM) - v4
+  L16   T4  supported     - livewire/livewire (LIVEWIRE) - v3
+  L17   T4  contradicted  - laravel/mcp (MCP) - v0
+         rule: DependencyUndeclared  [born wrong]
+         fact: dependencyExactMatchCount=0, dependencySuffixMatchCount=0, dependencyManifestParsedCount=2, claimedMajor=0
+  L18   T4  supported     - laravel/pint (PINT) - v1
+  L19   T4  supported     - laravel/sail (SAIL) - v1
+  L20   T4  supported     - pestphp/pest (PEST) - v4
+  L21   T4  contradicted  - phpunit/phpunit (PHPUNIT) - v12
+         rule: DependencyUndeclared  [born wrong]
+         fact: dependencyExactMatchCount=0, dependencySuffixMatchCount=0, dependencyManifestParsedCount=2, claimedMajor=12
+  L39   T5  contradicted  - If the user doesn't see a frontend change reflected in the UI, it co
+         rule: ScriptUndefined  [born wrong]
+         fact: scriptDefinedRootCount=0, scriptDefinedAnyCount=0, scriptHostFileCount=1, dynamicTargetRuleCount=0
+  L39   T5  supported     - If the user doesn't see a frontend change reflected in the UI, it co
+  L39   T5  supported     - If the user doesn't see a frontend change reflected in the UI, it co
+  L168  T1  supported     - Middleware are configured declaratively in `bootstrap/app.php` using
+  L170  T1  supported     - `bootstrap/providers.php` contains application specific service prov
+  L171  T1  supported     - The `app\Console\Kernel.php` file no longer exists; use `bootstrap/a
+  L172  T1  supported     - Console commands in `app/Console/Commands/` are automatically availa
+  L278  T1  supported     Tests live in the `tests/Feature` and `tests/Unit` directories.
+  L278  T1  supported     Tests live in the `tests/Feature` and `tests/Unit` directories.
+  L326  T1  supported     Browser tests should live in `tests/Browser/`.
+  L699  T1  contradicted  - [**/input-modalities/images.md] Use these docs for passing images as
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L700  T1  contradicted  - [**/input-modalities/documents.md] Use these docs for processing doc
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L701  T1  contradicted  - [**/input-modalities/audio.md] Use these docs for using audio files 
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L702  T1  contradicted  - [**/input-modalities/video.md] Use these docs for working with video
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L705  T1  contradicted  - [**/providers/anthropic.md] Use these docs for Anthropic (Claude) pr
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L706  T1  contradicted  - [**/providers/deepseek.md] Use these docs for DeepSeek provider and 
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L707  T1  contradicted  - [**/providers/elevenlabs.md] Use these docs for ElevenLabs text-to-s
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L708  T1  contradicted  - [**/providers/gemini.md] Use these docs for Google Gemini provider a
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L709  T1  contradicted  - [**/providers/groq.md] Use these docs for Groq provider setup and pr
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L710  T1  contradicted  - [**/providers/mistral.md] Use these docs for Mistral AI provider and
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L711  T1  contradicted  - [**/providers/ollama.md] Use these docs for Ollama local LLM provide
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L712  T1  contradicted  - [**/providers/openai.md] Use these docs for OpenAI provider and prov
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L713  T1  contradicted  - [**/providers/openrouter.md] Use these docs for OpenRouter provider 
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L714  T1  contradicted  - [**/providers/voyageai.md] Use these docs for VoyageAI embeddings pr
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L715  T1  contradicted  - [**/providers/xai.md] Use these docs for XAI (Grok) provider and pro
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L718  T1  contradicted  - [**/advanced/error-handling.md] Use these docs for error handling st
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L719  T1  contradicted  - [**/advanced/custom-providers.md] Use these docs for creating custom
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L720  T1  contradicted  - [**/advanced/rate-limits.md] Use these docs for managing API rate li
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+  L721  T1  contradicted  - [**/advanced/provider-interoperability.md] Use these docs for switch
+         rule: PathNeverExisted  [born wrong]
+         fact: pathExactMatchCount=0, pathSuffixMatchCount=0, pathIgnoredCount=0, pathSubmoduleCount=0, pathEverTrackedCount=0
+summary: supported=18, contradicted=22
+time: 288.8s  results: senso-out/HassanZahirnia__laravel-package-ocean/results

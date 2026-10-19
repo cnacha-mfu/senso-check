@@ -1,0 +1,10 @@
+# Pinned to the versions installed in the senso-framework environment (Python 3.12) that produced the paper's numbers.
+owlready2==0.51
+PyYAML==6.0.3
+python-dotenv==1.2.4
+openai==3.24.0
+pydantic==2.13.5
+numpy==2.5.3
+pathspec==1.1.1
+packaging==26.3
+krippendorff==0.8.2

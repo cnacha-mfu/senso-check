@@ -1,0 +1,8 @@
+.env
+.env.*
+senso-out/
+__pycache__/
+*.pyc
+.venv/
+.cache/
+*.log

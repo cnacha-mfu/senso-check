@@ -1,0 +1,55 @@
+# WP2 T6 version sources (design section 3, T6). Curated and committed before extraction.
+# Each source: path (glob, any depth unless prefixed "/"), parser (implemented in wp2/measure.py),
+# key (dotted key where the parser needs one). A repo may have several sources per subject
+# (monorepos); each becomes one VersionEvidence individual.
+# kind: "constraint" = a range (lower bound and maybe upper bound); "pin" = exact version.
+subjects:
+  python:
+    - {path: "pyproject.toml", parser: toml, key: "project.requires-python", kind: constraint}
+    - {path: "pyproject.toml", parser: toml, key: "tool.poetry.dependencies.python", kind: constraint}
+    - {path: "setup.cfg", parser: ini, key: "options.python_requires", kind: constraint}
+    - {path: "setup.py", parser: regex, key: "python_requires\\s*=\\s*['\"]([^'\"]+)['\"]", kind: constraint}
+    - {path: ".python-version", parser: text, kind: pin}
+    - {path: "Pipfile", parser: toml, key: "requires.python_version", kind: pin}
+  node:
+    - {path: "package.json", parser: json, key: "engines.node", kind: constraint}
+    - {path: ".nvmrc", parser: text, kind: pin}
+    - {path: ".node-version", parser: text, kind: pin}
+    - {path: "package.json", parser: json, key: "volta.node", kind: pin}
+    - {path: ".tool-versions", parser: toolversions, key: "nodejs", kind: pin}
+  go:
+    - {path: "go.mod", parser: regex, key: "(?m)^go\\s+([0-9][0-9.]*)", kind: min}
+    - {path: "go.mod", parser: regex, key: "(?m)^toolchain\\s+go([0-9][0-9.]*)", kind: pin}
+  java:
+    - {path: "pom.xml", parser: regex, key: "<maven\\.compiler\\.(?:release|source)>\\s*([0-9.]+)\\s*<", kind: pin}
+    - {path: "pom.xml", parser: regex, key: "<java\\.version>\\s*([0-9.]+)\\s*<", kind: pin}
+    - {path: "build.gradle", parser: regex, key: "JavaVersion\\.VERSION_([0-9_]+)|languageVersion\\s*(?:=|\\.set\\()\\s*JavaLanguageVersion\\.of\\((\\d+)\\)", kind: pin}
+    - {path: "build.gradle.kts", parser: regex, key: "JavaVersion\\.VERSION_([0-9_]+)|languageVersion\\s*(?:=|\\.set\\()\\s*JavaLanguageVersion\\.of\\((\\d+)\\)|jvmToolchain\\((\\d+)\\)", kind: pin}
+  dotnet:
+    - {path: "*.csproj", parser: regex, key: "<TargetFrameworks?>\\s*(?:net(?:coreapp)?)([0-9.]+)", kind: pin}
+    - {path: "global.json", parser: json, key: "sdk.version", kind: pin}
+  rust:
+    - {path: "rust-toolchain", parser: text, kind: pin}
+    - {path: "rust-toolchain.toml", parser: toml, key: "toolchain.channel", kind: pin}
+    - {path: "Cargo.toml", parser: toml, key: "package.rust-version", kind: min}
+    - {path: "Cargo.toml", parser: toml, key: "workspace.package.rust-version", kind: min}
+  php:
+    - {path: "composer.json", parser: json, key: "require.php", kind: constraint}
+    - {path: "composer.json", parser: json, key: "config.platform.php", kind: pin}
+  ruby:
+    - {path: ".ruby-version", parser: text, kind: pin}
+    - {path: "Gemfile", parser: regex, key: "(?m)^\\s*ruby\\s+['\"]([^'\"]+)['\"]", kind: constraint}
+    - {path: "*.gemspec", parser: regex, key: "required_ruby_version\\s*=\\s*['\"]([^'\"]+)['\"]", kind: constraint}
+  project_self:
+    # root-level only; pinned (lower = upper)
+    - {path: "/package.json", parser: json, key: "version", kind: pin}
+    - {path: "/pyproject.toml", parser: toml, key: "project.version", kind: pin}
+    - {path: "/pyproject.toml", parser: toml, key: "tool.poetry.version", kind: pin}
+    - {path: "/setup.cfg", parser: ini, key: "metadata.version", kind: pin}
+    - {path: "/settings.ini", parser: ini, key: "DEFAULT.version", kind: pin}
+    - {path: "/Cargo.toml", parser: toml, key: "package.version", kind: pin}
+    - {path: "/composer.json", parser: json, key: "version", kind: pin}
+    - {path: "/VERSION", parser: text, kind: pin}
+    - {path: "/*.csproj", parser: regex, key: "<Version>\\s*([0-9][0-9.]*)\\s*<", kind: pin}
+    # fallback when no source above exists: latest tag at or before the snapshot (git describe)
+    - {path: "<git-tag>", parser: tag, kind: pin, fallback_only: true}

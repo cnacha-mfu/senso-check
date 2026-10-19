@@ -1,0 +1,290 @@
+# WP2 T3 closed tool vocabulary and repository signatures (design section 3, T3).
+# A tool outside this vocabulary is dropped mechanically. Builtins (go test, cargo test) are not claims.
+#
+# Signature grammar:
+#   files:         globs matched against tracked paths at the snapshot (any depth, gitwildmatch)
+#   manifest_keys: "<file>::<dotted.key>" key present, or "<file>::<dotted.key>^=<prefix>" value startswith.
+#                  file is package.json | pyproject.toml | composer.json | Gemfile
+#   deps:          dependency names (normalized) looked up in the T4 census
+#   aliases:       other spellings that map to the canonical tool name
+# ecosystems: anchors = files whose presence shows the ecosystem is used at all;
+#             competitor lockfiles/tools of the same category in the ecosystem.
+ecosystems:
+  js:
+    anchors: ["package.json"]
+  python:
+    anchors: ["pyproject.toml", "setup.py", "setup.cfg", "requirements*.txt", "Pipfile", "tox.ini"]
+  php:
+    anchors: ["composer.json"]
+  ruby:
+    anchors: ["Gemfile", "*.gemspec"]
+  jvm:
+    anchors: ["pom.xml", "build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts"]
+  dotnet:
+    anchors: ["*.csproj", "*.sln", "*.fsproj", "global.json"]
+  native:
+    anchors: ["Makefile", "GNUmakefile", "makefile", "CMakeLists.txt", "*.mk", "BUILD", "BUILD.bazel", "WORKSPACE", "MODULE.bazel"]
+  any:
+    anchors: ["*"]   # never anchors; tools with ecosystem any are checked against signatures only
+
+tools:
+  # ---- package managers -------------------------------------------------
+  npm:
+    category: package_manager
+    ecosystem: js
+    files: ["package-lock.json", "npm-shrinkwrap.json", ".npmrc"]
+    manifest_keys: ["package.json::packageManager^=npm@"]
+    competitors: [pnpm, yarn, bun]
+  pnpm:
+    category: package_manager
+    ecosystem: js
+    files: ["pnpm-lock.yaml", "pnpm-workspace.yaml", ".pnpmfile.cjs"]
+    manifest_keys: ["package.json::packageManager^=pnpm@", "package.json::pnpm"]
+    competitors: [npm, yarn, bun]
+  yarn:
+    category: package_manager
+    ecosystem: js
+    files: ["yarn.lock", ".yarnrc", ".yarnrc.yml", ".yarn/*"]
+    manifest_keys: ["package.json::packageManager^=yarn@"]
+    competitors: [npm, pnpm, bun]
+  bun:
+    category: package_manager
+    ecosystem: js
+    files: ["bun.lockb", "bun.lock", "bunfig.toml"]
+    manifest_keys: ["package.json::packageManager^=bun@"]
+    competitors: [npm, pnpm, yarn]
+  uv:
+    category: package_manager
+    ecosystem: python
+    files: ["uv.lock", "uv.toml", ".python-version"]
+    manifest_keys: ["pyproject.toml::tool.uv", "pyproject.toml::dependency-groups"]
+    competitors: [poetry, pipenv]
+  poetry:
+    category: package_manager
+    ecosystem: python
+    files: ["poetry.lock", "poetry.toml"]
+    manifest_keys: ["pyproject.toml::tool.poetry"]
+    competitors: [uv, pipenv]
+  pipenv:
+    category: package_manager
+    ecosystem: python
+    files: ["Pipfile", "Pipfile.lock"]
+    manifest_keys: []
+    competitors: [uv, poetry]
+  bundler:
+    category: package_manager
+    ecosystem: ruby
+    files: ["Gemfile", "Gemfile.lock"]
+    manifest_keys: []
+    competitors: []
+    aliases: ["bundle"]
+  composer:
+    category: package_manager
+    ecosystem: php
+    files: ["composer.json", "composer.lock"]
+    manifest_keys: []
+    competitors: []
+  maven:
+    category: package_manager
+    ecosystem: jvm
+    files: ["pom.xml", "mvnw", ".mvn/*"]
+    manifest_keys: []
+    competitors: [gradle]
+    aliases: ["mvn"]
+  gradle:
+    category: package_manager
+    ecosystem: jvm
+    files: ["build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts", "gradlew"]
+    manifest_keys: []
+    competitors: [maven]
+  # ---- test frameworks --------------------------------------------------
+  pytest:
+    category: test_framework
+    ecosystem: python
+    files: ["pytest.ini", "conftest.py", "**/conftest.py", "tox.ini"]
+    manifest_keys: ["pyproject.toml::tool.pytest", "pyproject.toml::tool.pytest.ini_options"]
+    deps: [pytest]
+    aliases: ["py.test"]
+  jest:
+    category: test_framework
+    ecosystem: js
+    files: ["jest.config.*", "**/jest.config.*", "jest.setup.*"]
+    manifest_keys: ["package.json::jest"]
+    deps: [jest, ts-jest, "@jest/core", "@types/jest"]
+  vitest:
+    category: test_framework
+    ecosystem: js
+    files: ["vitest.config.*", "**/vitest.config.*", "vitest.workspace.*", "vitest*.ts", "vitest*.mts", "vitest*.js"]
+    manifest_keys: []
+    deps: [vitest]
+  mocha:
+    category: test_framework
+    ecosystem: js
+    files: [".mocharc*", "**/.mocharc*"]
+    manifest_keys: ["package.json::mocha"]
+    deps: [mocha]
+  playwright:
+    category: test_framework
+    ecosystem: js
+    files: ["playwright.config.*", "**/playwright.config.*"]
+    manifest_keys: []
+    deps: ["@playwright/test", playwright, playwright-core, pytest-playwright]
+  cypress:
+    category: test_framework
+    ecosystem: js
+    files: ["cypress.config.*", "cypress.json", "cypress/*"]
+    manifest_keys: []
+    deps: [cypress]
+  rspec:
+    category: test_framework
+    ecosystem: ruby
+    files: [".rspec", "spec/spec_helper.rb"]
+    manifest_keys: []
+    deps: [rspec, rspec-core, rspec-rails]
+  phpunit:
+    category: test_framework
+    ecosystem: php
+    files: ["phpunit.xml", "phpunit.xml.dist", "**/phpunit.xml", "**/phpunit.xml.dist"]
+    manifest_keys: []
+    deps: ["phpunit/phpunit"]
+  pest:
+    category: test_framework
+    ecosystem: php
+    files: ["tests/Pest.php", "**/Pest.php"]
+    manifest_keys: []
+    deps: ["pestphp/pest"]
+  junit:
+    category: test_framework
+    ecosystem: jvm
+    files: []
+    manifest_keys: []
+    deps: [junit, "junit:junit", "org.junit.jupiter:junit-jupiter", "org.junit.jupiter:junit-jupiter-api", junit-jupiter, junit-jupiter-api]
+    aliases: [junit5, "junit 5", "junit4"]
+  xunit:
+    category: test_framework
+    ecosystem: dotnet
+    files: []
+    manifest_keys: []
+    deps: [xunit, xunit.core, xunit.v3, xunit.runner.visualstudio]
+  nunit:
+    category: test_framework
+    ecosystem: dotnet
+    files: []
+    manifest_keys: []
+    deps: [nunit, nunit3testadapter]
+  # ---- build tools ------------------------------------------------------
+  make:
+    category: build_tool
+    ecosystem: native
+    files: ["Makefile", "GNUmakefile", "makefile", "**/Makefile", "*.mk"]
+    manifest_keys: []
+    aliases: ["gnu make"]
+  cmake:
+    category: build_tool
+    ecosystem: native
+    files: ["CMakeLists.txt", "**/CMakeLists.txt", "CMakePresets.json"]
+    manifest_keys: []
+  bazel:
+    category: build_tool
+    ecosystem: native
+    files: ["WORKSPACE", "WORKSPACE.bazel", "MODULE.bazel", "BUILD.bazel", ".bazelrc", ".bazelversion"]
+    manifest_keys: []
+    aliases: ["bazelisk"]
+  nx:
+    category: build_tool
+    ecosystem: js
+    files: ["nx.json", "project.json"]
+    manifest_keys: []
+    deps: [nx, "@nx/workspace", "@nrwl/workspace"]
+  turbo:
+    category: build_tool
+    ecosystem: js
+    files: ["turbo.json"]
+    manifest_keys: []
+    deps: [turbo, turborepo]
+    aliases: [turborepo]
+  vite:
+    category: build_tool
+    ecosystem: js
+    files: ["vite.config.*", "**/vite.config.*"]
+    manifest_keys: []
+    deps: [vite]
+  webpack:
+    category: build_tool
+    ecosystem: js
+    files: ["webpack.config.*", "**/webpack.config.*"]
+    manifest_keys: []
+    deps: [webpack]
+  rollup:
+    category: build_tool
+    ecosystem: js
+    files: ["rollup.config.*", "**/rollup.config.*"]
+    manifest_keys: []
+    deps: [rollup]
+  esbuild:
+    category: build_tool
+    ecosystem: js
+    files: ["esbuild.config.*", "**/esbuild.config.*", "build.mjs"]
+    manifest_keys: []
+    deps: [esbuild]
+  tsup:
+    category: build_tool
+    ecosystem: js
+    files: ["tsup.config.*", "**/tsup.config.*"]
+    manifest_keys: ["package.json::tsup"]
+    deps: [tsup]
+  # ---- linters and formatters --------------------------------------------
+  eslint:
+    category: linter_formatter
+    ecosystem: js
+    files: [".eslintrc*", "**/.eslintrc*", "eslint.config.*", "**/eslint.config.*"]
+    manifest_keys: ["package.json::eslintConfig"]
+    deps: [eslint]
+  prettier:
+    category: linter_formatter
+    ecosystem: js
+    files: [".prettierrc*", "**/.prettierrc*", "prettier.config.*", "**/prettier.config.*"]
+    manifest_keys: ["package.json::prettier"]
+    deps: [prettier]
+  ruff:
+    category: linter_formatter
+    ecosystem: python
+    files: ["ruff.toml", ".ruff.toml", "**/ruff.toml"]
+    manifest_keys: ["pyproject.toml::tool.ruff"]
+    deps: [ruff]
+  black:
+    category: linter_formatter
+    ecosystem: python
+    files: []
+    manifest_keys: ["pyproject.toml::tool.black"]
+    deps: [black]
+  flake8:
+    category: linter_formatter
+    ecosystem: python
+    files: [".flake8", "**/.flake8"]
+    manifest_keys: []
+    deps: [flake8]
+  mypy:
+    category: linter_formatter
+    ecosystem: python
+    files: ["mypy.ini", ".mypy.ini", "**/mypy.ini"]
+    manifest_keys: ["pyproject.toml::tool.mypy"]
+    deps: [mypy]
+  biome:
+    category: linter_formatter
+    ecosystem: js
+    files: ["biome.json", "biome.jsonc", "**/biome.json", "**/biome.jsonc"]
+    manifest_keys: []
+    deps: ["@biomejs/biome"]
+  rubocop:
+    category: linter_formatter
+    ecosystem: ruby
+    files: [".rubocop.yml", "**/.rubocop.yml"]
+    manifest_keys: []
+    deps: [rubocop]
+  golangci-lint:
+    category: linter_formatter
+    ecosystem: any
+    files: [".golangci.yml", ".golangci.yaml", ".golangci.toml", ".golangci.json"]
+    manifest_keys: []
+    aliases: [golangci_lint, golangcilint]
