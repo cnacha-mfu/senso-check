@@ -7,7 +7,7 @@ claim against the repository's git history, and tells you which claims are suppo
 unverifiable. For a contradicted claim it also says whether the claim **drifted** (it was true when it was written
 and is false now) or was **born wrong** (it was never true), and for how many days it has been false.
 
-This is the checker evaluated in the paper "SENSO: Checking Coding-Agent Manifests Against Repository History",
+This is the checker evaluated in the paper "SENSO: Ontology-Based Checking of Coding-Agent Manifests Against Repository History",
 from senso-framework commit `ba8fbdd6eddc09dc21f5e6e7f4f88b1440a9ce5b`. Rules, thresholds, prompts, models, the
 ontology and the claim normalisation (including the wildcard fix of senso-framework commit `0d546f5c`) are unchanged.
 Only paths and packaging differ.
@@ -185,7 +185,7 @@ The extraction prompt is `configs/wp2_extraction_prompt.md`.
 
 ## How to cite
 
-> Nacha Chondamrongkul and Jing Sun. "SENSO: Checking Coding-Agent Manifests Against Repository History." [Venue], 2026.
+> Nacha Chondamrongkul and Jing Sun. "SENSO: Ontology-Based Checking of Coding-Agent Manifests Against Repository History." [Venue], 2026.
 
 See `CITATION.cff`. (The venue and DOI will be added once the paper is published.)
 

@@ -16,7 +16,7 @@ authors:
     affiliation: "University of Auckland"
 preferred-citation:
   type: article
-  title: "SENSO: Checking Coding-Agent Manifests Against Repository History"
+  title: "SENSO: Ontology-Based Checking of Coding-Agent Manifests Against Repository History"
   authors:
     - family-names: "Chondamrongkul"
       given-names: "Nacha"
